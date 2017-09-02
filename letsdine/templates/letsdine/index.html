@@ -1,9 +1,173 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+{% load static %}
+	<title>Let's Dine</title>
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+<link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+<link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'vendor/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+<link href="https://fonts.googleapis.com/css?family=Satisfy" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Catamaran:900" rel="stylesheet">
 </head>
 <body>
+<header class="header navbar-fixed-top">
+              <nav class="navbar" role="navigation">
+                <div class="container">
+                      <div class="menu-container js_nav-item">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="toggle-icon"></span>
+                        </button>
 
+                          <div class="logo">
+                            <a class="logo-wrap" href="#body">
+                                <div class="logo_1" style="font-family: 'Satisfy', cursive;font-size: 35px;">Let's Dine!</div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="collapse navbar-collapse nav-collapse">
+					
+                        <div class="menu-container">
+                            <ul class="nav navbar-nav navbar-nav-right">
+                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="login.html" style="font-family: 'Catamaran', sans-serif;font-size: 20px">Login</a></li>
+                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="register.html" style="font-family: 'Catamaran', sans-serif;font-size: 20px">Register</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+			</header>
+
+<div class="main">
+	<div class="main_content">
+		<div class="row" style="height: 40vh">
+			
+		</div>
+		<div class="row">
+			<center><div class="main_heading">We help you meet new people with same interest as yours.</div></center>
+		</div>
+
+	</div>
+</div>
+<div class="features">
+    <div class="row">
+        <div class="features_1">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="empty"></div>
+                    </div>
+                    <div class="row">
+                        <div class="pic_1"></div>
+                    </div>
+                    <div class="row">
+                        <div class="empty"></div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-8">
+                        <div class="empty"></div>
+                            <div class="row">
+                                <center><div class="features_heading">Meet new people.</div></center>
+                            </div>
+                            <div class="empty"></div>
+                            <div class="row">
+                                <center><div class="features_body">Meet new people and bla bla bla.</div></center>
+                            </div>
+                            <div class="empty"></div>
+                        </div>
+                        <div class="col-sm-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="features_2">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-8">
+                        <div class="empty"></div>
+                            <div class="row">
+                                <center><div class="features_heading" style="color: white! important;">Meet new people.</div></center>
+                            </div>
+                            <div class="empty"></div>
+                            <div class="row">
+                                <center><div class="features_body" style="color: white! important;">Meet new people and bla bla bla.</div></center>
+                            </div>
+                            <div class="empty"></div>
+                        </div>
+                        <div class="col-sm-2"></div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="empty"></div>
+                    </div>
+                    <div class="row">
+                        <div class="pic_2"></div>
+                    </div>
+                    <div class="row">
+                        <div class="empty"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="features_3">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="empty"></div>
+                    </div>
+                    <div class="row">
+                        <div class="pic_3"></div>
+                    </div>
+                    <div class="row">
+                        <div class="empty"></div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-8">
+                        <div class="empty"></div>
+                            <div class="row">
+                                <center><div class="features_heading">Meet new people.</div></center>
+                            </div>
+                            <div class="empty"></div>
+                            <div class="row">
+                                <center><div class="features_body">Meet new people and bla bla bla.</div></center>
+                            </div>
+                            <div class="empty"></div>
+                        </div>
+                        <div class="col-sm-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+    <div class="row">
+    <div class="col-sm-6">
+        <center><div style="font-family: 'Satisfy', cursive;font-size: 45px; color: white;">Let's Dine!</div></center>
+        </div>
+        <div class="col-sm-6">
+            <div style="font-family: 'Catamaran', sans-serif; font-size: 35px; color: white;">Made By Team - The Shinigamis</div>
+        </div>
+    </div>
+</footer>
+<script src="{% static 'vendor/jquery.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'vendor/jquery-migrate.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}" type="text/javascript"></script>
+        <script type="text/javascript" src="{% static 'js/javascript.js' %}"></script>
 </body>
 </html>
