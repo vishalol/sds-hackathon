@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Let's Dine</title>
-<link rel="stylesheet" type="text/css" href="css/dashboard.css">
-<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+{% load static %}
+	<title>Dashboard</title>
+<link rel="stylesheet" type="text/css" href="{% static 'css/dashboard.css' %}">
+<link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
 <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
-<link rel="stylesheet" href="vendor/font-awesome-4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="{% static 'vendor/font-awesome-4.7.0/css/font-awesome.min.css' %}">
 <link href="https://fonts.googleapis.com/css?family=Satisfy" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Catamaran:900" rel="stylesheet">
 </head>
@@ -21,7 +22,7 @@
 
                           <div class="logo">
                             <a class="logo-wrap" href="#body">
-                                <div class="logo_1" style="font-family: 'Satisfy', cursive;font-size: 35px;">Let's Dine!</div>
+                                <div class="logo_1" style="font-family: 'Satisfy', cursive;font-size: 35px; color: white! important; ">Let's Dine!</div>
                             </a>
                         </div>
                     </div>
@@ -30,7 +31,90 @@
                     
                         <div class="menu-container">
                             <ul class="nav navbar-nav navbar-nav-right">
-                            <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="register.html" style="font-family: 'Catamaran', sans-serif;font-size: 20px; line-height: 97px; "></a></li>
+                            <li class="js_nav-item nav-item">
+                                
+
+                                    <a class="nav-item-child nav-item-hover" data-toggle="modal" data-target="#myModal" style="font-family: 'Catamaran', sans-serif;font-size: 20px; line-height: 97px;width: 97px;color: white; "><center><i class="fa fa-bell" aria-hidden="true" ></i></center>
+</a>
+
+<div id="myModal" class="modal fade" role="dialog" style="z-index: 2000! important;">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Notifications</h4>
+      </div>
+      <div class="modal-body">
+        <p>
+            <div class="alert alert-success">
+  <strong>User1</strong> wants to join you &nbsp;&nbsp;&nbsp;<button class="btn btn-success">Approve</button>&nbsp;&nbsp;&nbsp;<button class="btn btn-danger">Reject</button>
+
+</div>
+<div class="alert alert-success">
+  <strong>Success!</strong> Indicates a successful or positive action.
+</div>
+<div class="alert alert-success">
+  <strong>Success!</strong> Indicates a successful or positive action.
+</div>
+
+
+
+
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div id="amyModal" class="modal fade" role="dialog" style="z-index: 2000! important;">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Plan Details</h4>
+      </div>
+      <div class="modal-body">
+        <p style="font-style: 'Catamaran', sans-serif;font-size: 20px;font-weight: bolder;">Location on Date at Time . <a href="">user1</a> , <a href="">user2</a> , <a href="">user3</a></p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn  btn-success">Send Request</button><button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div id="bmyModal" class="modal fade" role="dialog" style="z-index: 2000! important;">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+        <p>Some text in the modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+                           </li>
+
+<li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" title="Add plan" href="register.html" style="font-family: 'Catamaran', sans-serif;font-size: 20px; line-height: 97px;width: 97px;color: white; "><center><i class="fa fa-plus" aria-hidden="true"></i></center>
+</a></li>
+
                                 <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="register.html" style="font-family: 'Catamaran', sans-serif;font-size: 20px; line-height: 97px;width: 97px;color: white; "><center><i class="fa fa-home" aria-hidden="true"></i></center>
 </a></li>
                                 <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="login.html" style="font-family: 'Catamaran', sans-serif;font-size: 20px"><img src="https://i.pinimg.com/originals/63/19/ef/6319ef2f3fc88c94b14bb3fdeddca4a5.jpg" width="97px" height="97px"></a></li>
@@ -42,6 +126,7 @@
                 </div>
             </nav>
             </header>
+
             <div class="row" style="height: 97px;"></div>
 <div class="wrapper">
     <div class="row" class="height_nav">
@@ -60,18 +145,39 @@
             <div class="row" >
                 <div class="col-sm-2"></div>
                 <div class="col-sm-8" class="" >
-                    <div class="myplan">
-                        
+                <a data-toggle="modal" data-target="#amyModal">
+                    <div class="myplan" style="cursor: pointer;">
+
+                    <div class="myplan1"> 
+                       <center> Location on Date at Time . 4 people intereseted.</center> 
+                        </div><br>
+                        <center><button class="btn btn-light" type="submit">Chat</button>&nbsp;&nbsp;<button class="btn btn-danger">Cancel Plan</button></center>
                     </div><br>
-                    <div class="myplan">
-                        
+                    </a>
+                    <a data-toggle="modal" data-target="#amyModal">
+                    <div class="myplan" style="cursor: pointer;">
+                        <div class="myplan1"> 
+                       <center> Location on Date at Time . 4 people intereseted.</center> 
+                        </div><br>
+                        <center><button class="btn btn-light" type="submit">Chat</button>&nbsp;&nbsp;<button class="btn btn-danger">Cancel Plan</button></center>
                     </div><br>
+                    </a>
+                    <a data-toggle="modal" data-target="#amyModal">
                     <div class="myplan">
-                        
+                        <div class="myplan1" style="cursor: pointer;"> 
+                       <center> Location on Date at Time . 4 people intereseted.</center> 
+                        </div><br>
+                        <center><button class="btn btn-light" type="submit">Chat</button>&nbsp;&nbsp;<button class="btn btn-danger">Cancel Plan</button></center>
                     </div><br>
+                    </a>
+                    <a data-toggle="modal" data-target="#amyModal">
                     <div class="myplan">
-                        
+                        <div class="myplan1" style="cursor: pointer;"> 
+                       <center> Location on Date at Time . 4 people intereseted.</center> 
+                        </div><br>
+                        <center><button class="btn btn-light" type="submit">Chat</button>&nbsp;&nbsp;<button class="btn btn-danger">Cancel Plan</button></center>
                     </div>
+                    </a>
                 </div>
                 <div class="col-sm-2"></div>
             </div>
@@ -81,47 +187,55 @@
                 <div class="col-sm-12" class="body_height">
                     
                     <div class="row">
-                        <div class="otherplans">
+                        <div class="otherplans" style="cursor: pointer;">
+                        <a data-toggle="modal" data-target="#amyModal">
                         <div class="otherplan">
                             <div class="row">
                                 <div class="plan">
-                                    Location on Date at Time . 4 people interested.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-success">Send Request</button>
+                                    Location on Date at Time . 4 people interested.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-success" type="submit">Send Request</button>
                                 </div>
                             </div>
                         </div>
+                        </a>
                          </div>
                     </div>
                     <div class="row">
-                        <div class="otherplans"> 
+                        <div class="otherplans" style="cursor: pointer;"> 
+                        <a data-toggle="modal" data-target="#amyModal">
                             <div class="otherplan">
                                 <div class="row">
                                 <div class="plan">
-                                    Location on Date at Time . 4 people interested.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-success">Send Request</button>
+                                    Location on Date at Time . 4 people interested.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-success" type="submit">Send Request</button>
                                 </div>
                             </div>
                             </div>
+                            </a>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="otherplans"> 
+                        <div class="otherplans" style="cursor: pointer;"> 
+                        <a data-toggle="modal" data-target="#amyModal">
                             <div class="otherplan">
                                 <div class="row">
                                 <div class="plan">
-                                    Location on Date at Time . 4 people interested.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-success">Send Request</button>
+                                    Location on Date at Time . 4 people interested.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-success" type="submit">Send Request</button>
                                 </div>
                             </div>
                             </div>
+                            </a>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="otherplans"> 
+                        <div class="otherplans" style="cursor: pointer;"> 
+                        <a data-toggle="modal" data-target="#amyModal">
                             <div class="otherplan">
                                 <div class="row">
                                 <div class="plan">
-                                    Location on Date at Time . 4 people interested.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-success">Send Request</button>
+                                    Location on Date at Time . 4 people interested.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-success" type="submit">Send Request</button>
                                 </div>
                             </div>
                             </div>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -129,6 +243,7 @@
         </div>
     </div>
 </div>
+
 <footer>
     <div class="row">
     <div class="col-sm-6">
@@ -139,9 +254,9 @@
         </div>
     </div>
 </footer>
-<script src="vendor/jquery.min.js" type="text/javascript"></script>
-        <script src="vendor/jquery-migrate.min.js" type="text/javascript"></script>
-        <script src="vendor/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-        <script type="text/javascript" src="js/javascript.js"></script>
+<script src="{% static 'vendor/jquery.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'vendor/jquery-migrate.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}" type="text/javascript"></script>
+        <script type="text/javascript" src="{% static 'js/javascript.js' %}"></script>
 </body>
 </html>
