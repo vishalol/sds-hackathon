@@ -13,6 +13,7 @@ admin.site.register(Message)
 from mapwidgets.widgets import GooglePointFieldWidget
 
 class PlanAdmin(admin.ModelAdmin):
-    form = PlanAdminForm
-    
+    formfield_overrides = {
+        models.PointField: {"widget": GooglePointFieldWidget}
+    }
 admin.site.register(Plan, PlanAdmin)
