@@ -1,0 +1,9 @@
+.text,.city,.mobile,.occupation,.about,.interests{
+	font-style: 'Catamaran';
+	font-size: 20px;
+	font-weight: bold;
+}
+.gender,.loc,.num,.about_me{
+	font-size: 15px;
+	font-weight: normal;
+}
