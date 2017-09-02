@@ -1,14 +1,26 @@
 <DOCTYPE html>
 <html>
 <head>
-{% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'create.css' %}">
+{# Don't forget that one ! #}
+{% load widget_tweaks %}
+  {% load static %}
+  <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.44/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+<script src="//cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="//cdn.bootcss.com/moment.js/2.17.1/moment.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.44/js/bootstrap-datetimepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'css/create.css' %}">
 <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
 <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
 <link rel="stylesheet" href="{% static 'vendor/font-awesome-4.7.0/css/font-awesome.min.css' %}">
 <link href="https://fonts.googleapis.com/css?family=Satisfy" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Catamaran:900" rel="stylesheet">
-
+<script src="{% static 'vendor/jquery.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'vendor/jquery-migrate.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}" type="text/javascript"></script>
+        <script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
+{{ form.media }}
 </head>
 
 <body>
@@ -41,7 +53,7 @@
             </nav>
             </header>
 
-
+{% block content %}
             <div class="main">
     <div class="main_content">
         <div class="row" style="height: 40vh">
@@ -50,7 +62,8 @@
         <div class="row">
             <center><div class="main_heading">
 
-<form>
+<form action="." method="post">
+{% csrf_token %}
 <div class="row">
 <div class="col-sm-4"> </div>
 <div class="col-sm-4">
@@ -59,26 +72,25 @@
 
   <div class="form-group">
     <label class="time">Going Time :</label>
-    <input type="text" class="form-control">
+    {% render_field form.going_time class+="form-control" %}
   </div>
 
   <div class="form-group">
     <label class="food">Food type :</label>
-    <input type="text" class="form-control">
+    {% render_field form.food_type class+="form-control" %}
   </div>
 
-  <div class="form-group">
+  
     <label class="ouser">Other Users :</label>
-    <input type="text" class="form-control">
+    {% render_field form.other_users class+="form-control" %}
    
-  </div>
  
 
     
-    <div class="form-group">
+  
     <label class="loc">Location :</label>
-    <input type="text" class="form-control">
-  </div>
+    {{ form.place }}
+
   <br><br>
   <center><button type="submit" class="btn btn-primary" class="create">Create Plan</button></center>
   </div>
@@ -86,7 +98,10 @@
 </div>
 </div>
 
-</form>
+</form
+
+
+
 
 
 
@@ -95,6 +110,9 @@
 
     </div>
 </div>
+{% endblock %}
+{% block footer %}
+
 
 <footer>
     <div class="row">
@@ -106,12 +124,20 @@
         </div>
     </div>
 </footer>
-<script src="{% static 'vendor/jquery.min.js' %}" type="text/javascript"></script>
-        <script src="{% static 'vendor/jquery-migrate.min.js' %}" type="text/javascript"></script>
-        <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}" type="text/javascript"></script>
-        <!-- <script type="text/javascript" src="js/javascript.js"></script> -->
-
-
+<link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.44/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+<script src="//cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="//cdn.bootcss.com/moment.js/2.17.1/moment.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.44/js/bootstrap-datetimepicker.min.js"></script>
+<script>
+    $(function () {
+        $('#id_going_time').datetimepicker({
+            format:'YYYY-MM-DD// HH:mm:ss'
+        });
+    });
+</script>
+{% endblock %}
 </body>
 
 </html>

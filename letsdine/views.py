@@ -69,7 +69,7 @@ def index(request):
 def dashboard(request):
     user = request.user
     logg = UserProfile.objects.get(user=request.user)
-    latest_plans = Plan.objects.order_by('-created_on')[:8]   
+    latest_plans = Plan.objects.order_by('-created_on')[:5]   
     context = {
     'userp' : logg,
     'user' : user,
@@ -148,7 +148,7 @@ def add_plan(request):
         'form': form,
         'logg' : logg,
         }
-            return render(request, 'letsdine/add_plan.html', context)
+            return render(request, 'letsdine/plan.html', context)
     else:
         logg = UserProfile.objects.get(user=request.user)
         form = PlanForm()
@@ -156,4 +156,4 @@ def add_plan(request):
         'form': form,
         'logg' : logg,
         }   
-        return render(request, 'letsdine/add_plan.html', context)                                  
+        return render(request, 'letsdine/plan.html', context)                                  

@@ -1,12 +1,16 @@
 from mapwidgets.widgets import GooglePointFieldWidget
 import re
 from django import forms
+
 #from django.contrib.auth.models import User
 from .models import *
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.translation import ugettext_lazy as _
 from dal import autocomplete
 from django.urls import reverse
+from django.contrib.admin import widgets
+
+
 
 
 class PlanForm(forms.ModelForm):
@@ -16,7 +20,9 @@ class PlanForm(forms.ModelForm):
         widgets = {
             'place': GooglePointFieldWidget,
             'other_users': autocomplete.ModelSelect2Multiple(url='user-autocomplete', attrs={'data-html': True}),
-        }        
+            
+        }  
+        """ 'other_users': autocomplete.ModelSelect2Multiple(url='user-autocomplete', attrs={'data-html': True}),"""      
 
 
 class RegistrationForm(forms.Form):
