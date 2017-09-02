@@ -12,6 +12,9 @@ urlpatterns = [
     url(r'^register/$', views.register, name='register'),
     url(r'^dashboard/$', views.dashboard, name='dashboard'),
     url(r'^addplan/$', views.add_plan, name='add_plan'),
-    url(r'^editprofile/$', views.edit_profile, name='edit_profile'),
+    url(r'^editprofile/$', views.edit_profile, name='editprofile'),
     url(r'^profile/(?P<username>\w+)/$', views.profile, name='profile'),
+    url(r'^cancelplan/(?P<plan_id>[0-9]+)/$', views.cancelplan, name='cancelplan'),
+    url(r'^confirmplan/(?P<plan_id>[0-9]+)/$', views.confirmplan, name='confirmplan'),
+    url(r'^requestplan/(?P<plan_id>[0-9]+)/$', views.requestplan, name='requestplan'),
 ]

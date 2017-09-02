@@ -99,17 +99,22 @@
   </div>
 </div>
 {% endfor %}
-<div id="bmyModal" class="modal fade" role="dialog" style="z-index: 2000! important;">
+{% for plan, x in myplanz %}
+<div id="{{ plan.id }}-my" class="modal fade" role="dialog" style="z-index: 2000! important;">
   <div class="modal-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Modal Header</h4>
+        <h4 class="modal-title">Plan Details</h4>
       </div>
       <div class="modal-body">
-        <p>Some text in the modal.</p>
+         <p style="font-style: 'Catamaran', sans-serif;font-size: 20px;font-weight: bolder;">Following People are going {{ x.address}} on {{ plan.going_time }}<br>
+        {% for user in plan.other_users.all %}
+        <ul>
+        <li> <a href="{% url 'letsdine:profile' user.username %}"">{{ user.first_name }}  {{ user.last_name }}</a> </li></ul>
+        {% endfor %}</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -118,6 +123,7 @@
 
   </div>
 </div>
+{% endfor %}
 
                            </li>
 
@@ -154,39 +160,19 @@
             <div class="row" >
                 <div class="col-sm-2"></div>
                 <div class="col-sm-8" class="" >
-                <a data-toggle="modal" data-target="#amyModal">
+                {% for plan, x in myplanz %}
+                <a data-toggle="modal" data-target="#{{ plan.id }}-my">
                     <div class="myplan" style="cursor: pointer;">
 
                     <div class="myplan1"> 
-                       <center> Location on Date at Time . 4 people intereseted.</center> 
+                       <center> Going {{ x.address}} on {{ plan.going_time }} . {{ plan.other_users.count }} people interested.</center> 
                         </div><br>
                         <center><button class="btn btn-light" type="submit">Chat</button>&nbsp;&nbsp;<button class="btn btn-danger">Cancel Plan</button></center>
                     </div><br>
                     </a>
-                    <a data-toggle="modal" data-target="#amyModal">
-                    <div class="myplan" style="cursor: pointer;">
-                        <div class="myplan1"> 
-                       <center> Location on Date at Time . 4 people intereseted.</center> 
-                        </div><br>
-                        <center><button class="btn btn-light" type="submit">Chat</button>&nbsp;&nbsp;<button class="btn btn-danger">Cancel Plan</button></center>
-                    </div><br>
-                    </a>
-                    <a data-toggle="modal" data-target="#amyModal">
-                    <div class="myplan">
-                        <div class="myplan1" style="cursor: pointer;"> 
-                       <center> Location on Date at Time . 4 people intereseted.</center> 
-                        </div><br>
-                        <center><button class="btn btn-light" type="submit">Chat</button>&nbsp;&nbsp;<button class="btn btn-danger">Cancel Plan</button></center>
-                    </div><br>
-                    </a>
-                    <a data-toggle="modal" data-target="#amyModal">
-                    <div class="myplan">
-                        <div class="myplan1" style="cursor: pointer;"> 
-                       <center> Location on Date at Time . 4 people intereseted.</center> 
-                        </div><br>
-                        <center><button class="btn btn-light" type="submit">Chat</button>&nbsp;&nbsp;<button class="btn btn-danger">Cancel Plan</button></center>
-                    </div>
-                    </a>
+                    {% endfor %}
+                    
+                    
                 </div>
                 <div class="col-sm-2"></div>
             </div>

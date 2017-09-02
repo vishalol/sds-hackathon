@@ -2,6 +2,7 @@
 <html>
 <head>
 {% load static %}
+{% load widget_tweaks %}
 	<title>Update Profile</title>
 <link rel="stylesheet" type="text/css" href="{% static 'css/editprofile.css' %}">
 <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
@@ -130,18 +131,19 @@
                 <div class="col-sm-10">
                    <div class="card">
                             <div class="content">
-                                <form>
+                                <form method="post" enctype = "multipart/form-data" action=".">
+                                    {% csrf_token %}
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Occupation</label>
-                                                <input type="text" class="form-control" placeholder="Occupation" >
+                                                <input type="text" class="form-control" placeholder="Occupation" value="{{profile.occupation}}" name="city_name">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Mobile Number</label>
-                                                <input type="text" class="form-control" placeholder="Number" >
+                                                <input type="number" class="form-control" placeholder="+91" value="{{profile.contact_no}}" name="contact_no">
                                             </div>
                                         </div>
                                     </div>
@@ -150,14 +152,17 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>City</label>
-                                                <input type="text" class="form-control" placeholder="Current City" >
+                                                <input type="text" class="form-control" placeholder="City" value="{{profile.city_name}}" name="city_name">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Gender</label><br>
-                                                <label class="checkbox-inline"><input type="checkbox" value="">Male</label>
-                                                <label class="checkbox-inline"><input type="checkbox" value="">Female</label>
+                                                 <select class="form-control" id="id_gender" name="gender" value="{{profile.gender}}">
+                                                <option value="M">Male</option>
+                                                <option value="F">Female</option>
+                                                <option value="O">Other</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -166,39 +171,41 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Age</label>
-                                                <input type="number" class="form-control" placeholder="Age">
+                                                <input type="number" class="form-control" placeholder="18" name="age" value="{{profile.age}}">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Interests</label>
-                                                <input type="text" class="form-control" placeholder="Your interests" >
+                                                {{ form.intrests }}
+
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Profile Picture</label>
-                                                <input type="file" class="form-control">
+                                                {{ form.display_pic }}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label>Facebook Username</label>
-                                                <input type="text" class="form-control" placeholder="Facebook Username">
+                                                <label>Facebook Link</label>
+                                                <input type="url" class="form-control" placeholder="Facebook Username" 
+                                                name="fb_link" value="{{profile.fb_link}}">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label>Instagram Username</label>
-                                                <input type="text" class="form-control" placeholder="Instagram Username" >
+                                                <label>Instagram Link</label>
+                                                <input type="url" class="form-control" placeholder="Instagram Username" name="insta_link" value="{{profile.insta_link}}" >
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label>Twitter Username</label>
-                                                <input type="text" class="form-control" placeholder="Twitter Username" >
+                                                <label>Twitter Link</label>
+                                                <input type="url" class="form-control" placeholder="Twitter Username" name="twitter_link" value="{{profile.twitter_link}}" >
                                             </div>
                                         </div>
                                     </div>
@@ -207,7 +214,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Short Bio</label>
-                                                <textarea rows="5" class="form-control" placeholder="Here can be your description" value="">Lamborghini Mercy, I'm in that two seat Lambo.</textarea>
+                                                <textarea rows="5" class="form-control" placeholder="Here can be your description" value="{{ form.about_you }}">Lamborghini Mercy, I'm in that two seat Lambo.</textarea>
                                             </div>
                                         </div>
                                     </div>

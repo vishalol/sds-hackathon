@@ -133,19 +133,24 @@
                             <div class="content">
                             <center>
                                 <img src="https://i.pinimg.com/originals/63/19/ef/6319ef2f3fc88c94b14bb3fdeddca4a5.jpg" height="100px" width="100px" style="border-radius: 50%;"><br><br>
-                                <span class="text">Name</span><br>
-                                <span class="gender">Male   30</span><br><br>
-                                <span class="city">City : </span><span class="loc"> Roorkee</span><br><br>
-                                <span class="mobile">Mobile Number : <span class="num">94105a5sdf6</span></span><br><br>
-                                <span class="occupation">Occupation :</span><br><br>
-                                <span class="about">About Me</span><br>
+                                <span class="text">{{ user.first_name }} {{ user.last_name }}</span><br>
+                                <span class="gender">{% if userp.gender %} {{ userp.gender }} {% endif %}  {% if userp.age %} {{ userp.age }} {% endif %}</span><br><br>
+                               {% if userp.city_name %} <span class="city">City : </span><span class="loc"> {{ userp.city_name }}</span><br><br>{% endif %}
+                               {% if userp.contact_no %} <span class="mobile">Mobile Number : <span class="num">{{ userp.contact_no }}</span></span><br><br>{% endif %}
+                               {% if userp.occupation %} <span class="occupation">Occupation :{{ userp.occupation }}</span><br><br>{% endif %}
+                               {% if userp.about_you %} <span class="about">About Me</span><br>
                                 <div class="row" style="word-wrap: break-word;
-">adsfasdfasdffdasdfajsdfashdfbahsdfbasjdfhbfhbbasdfasdfasdfsadfasdfasdfasdffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffkjhasdufhasdfhasdkfhasdfkjahsdfkjashdfkajsdfhkjasfhkajsdfhaksdfhuiahfauhdaisufhasdufhaksdfhaiusdfhasidfuhasiudfhaisudfhaisudfhiausdfdhaiusfdh</div><br><br>
+">{{ userp.about_you }}</div><br><br>{% endif %}
                                 <span class="interests">Interests</span><br>
-                                <div class="row" style="word-wrap: break-word;"></div>
-                                <span><i class="fa fa-facebook" aria-hidden="true"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><i class="fa fa-instagram" aria-hidden="true"></i>
-</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><i class="fa fa-twitter" aria-hidden="true"></i>
-</span>
+                                <div class="row" style="word-wrap: break-word;">
+                                    {% for int in userp.intrests.all %}
+                                    {{ int.name }} , 
+                                    {% endfor %}
+                                </div>
+                               {% if userp.fb_link %} <span><a href="{{ userp.fb_link }}"><i class="fa fa-facebook" aria-hidden="true"></i></a></span>{% endif %}{% if userp.insta_link %}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><a href="{{ userp.insta_link }}"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{% endif %}{% if userp.twitter_link %}<span><a href="{{ userp.twitter_link }}"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+</span>{% endif %}
+{% if user == request.user %}<a href="{% url 'letsdine:editprofile' %}""><button class="btn btn-light" >Update Profile</button></a>{% endif %}
                             </center>
                             </div>
                         </div>

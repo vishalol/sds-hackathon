@@ -16,6 +16,7 @@ try:
 except ImportError:
     import json
 from dal import autocomplete
+from geopy.geocoders import Nominatim
 
 # Create your views here.
 
@@ -66,9 +67,19 @@ def index(request):
     return render(request, 'letsdine/index.html')
 
 
-from geopy.geocoders import Nominatim
+
 @login_required(login_url='/login')
 def dashboard(request):
+    myplans = request.user.iplans.all().order_by('-created_on')[:5]
+    geolocator = Nominatim()
+    mypostlist = []
+    for plan in myplans:
+        x = str(plan.place.x)
+        a = plan.place.x
+        b = plan.place.y
+        y = str(plan.place.y)
+        location = geolocator.reverse((a,b))
+        mypostlist.append(location)
     user = request.user
     logg = UserProfile.objects.get(user=request.user)
     latest_plans = Plan.objects.order_by('-created_on')[:5]
@@ -84,18 +95,29 @@ def dashboard(request):
         print y
         location = geolocator.reverse((a,b))
         postlist.append(location)
-        print location.raw
+
     context = {
     'userp' : logg,
     'user' : user,
     'plans' : latest_plans,
-    'planz': zip(latest_plans, postlist)
+    'planz': zip(latest_plans, postlist),
+    'myplanz': zip(myplans, mypostlist)
     }
     return render(request, 'letsdine/dashboard.html', context)
 
 
 @login_required(login_url='/login')
 def edit_profile(request):
+    myplans = request.user.iplans.all().order_by('-created_on')[:5]
+    geolocator = Nominatim()
+    mypostlist = []
+    for plan in myplans:
+        x = str(plan.place.x)
+        a = plan.place.x
+        b = plan.place.y
+        y = str(plan.place.y)
+        location = geolocator.reverse((a,b))
+        mypostlist.append(location)
     if request.method == 'POST':
         user = request.user
         profile = UserProfile.objects.get(user=user)
@@ -109,15 +131,17 @@ def edit_profile(request):
             'user' : user,
             'profile' : profile,
             'form'  : form,
+            'myplanz': zip(myplans, mypostlist)
             }   
-            return HttpResponseRedirect(reverse('letsdine:edit_profile'), context)
+            return HttpResponseRedirect(reverse('letsdine:editprofile'), context)
         else :
             context = {
             'user' : user,
             'profile' : profile,
             'form'  : form,
+            'myplanz': zip(myplans, mypostlist)
             } 
-            return HttpResponseRedirect(reverse('letsdine:edit_profile'), context)
+            return HttpResponseRedirect(reverse('letsdine:editprofile'), context)
     else:    
         user = User.objects.get(username= request.user.username)
         profile = UserProfile.objects.get(user = request.user)
@@ -126,12 +150,22 @@ def edit_profile(request):
             'user' : user,
             'profile' : profile,
             'form'  : form,
-            'logg' : logg,
+            'myplanz': zip(myplans, mypostlist)
         }
-        return render(request, 'letsdine/user.html', context) 
+        return render(request, 'letsdine/editprofile.html', context) 
 
 @login_required(login_url='/login')
 def profile(request, username):
+    myplans = request.user.iplans.all().order_by('-created_on')[:5]
+    geolocator = Nominatim()
+    mypostlist = []
+    for plan in myplans:
+        x = str(plan.place.x)
+        a = plan.place.x
+        b = plan.place.y
+        y = str(plan.place.y)
+        location = geolocator.reverse((a,b))
+        mypostlist.append(location)
     logg = UserProfile.objects.get(user=request.user)
     loguser = request.user
     user = get_object_or_404(User, username=username)
@@ -140,12 +174,23 @@ def profile(request, username):
     'user' : user,
     'userp' : profile,
     'loguser' : loguser,
+    'myplanz': zip(myplans, mypostlist)
     }
-    return render(request, 'letsdine/userprofile.html', context)
+    return render(request, 'letsdine/prof.html', context)
 
 
 @login_required(login_url='/login')
 def add_plan(request):
+    myplans = request.user.iplans.all().order_by('-created_on')[:5]
+    geolocator = Nominatim()
+    mypostlist = []
+    for plan in myplans:
+        x = str(plan.place.x)
+        a = plan.place.x
+        b = plan.place.y
+        y = str(plan.place.y)
+        location = geolocator.reverse((a,b))
+        mypostlist.append(location)
     logg = UserProfile.objects.get(user=request.user)
     if request.method == 'POST':
         form = PlanForm(request.POST)
@@ -163,6 +208,7 @@ def add_plan(request):
             context = {
         'form': form,
         'logg' : logg,
+        'myplanz': zip(myplans, mypostlist)
         }
             return render(request, 'letsdine/plan.html', context)
     else:
@@ -171,5 +217,35 @@ def add_plan(request):
         context = {
         'form': form,
         'logg' : logg,
+        'myplanz': zip(myplans, mypostlist)
         }   
-        return render(request, 'letsdine/plan.html', context)                                  
+        return render(request, 'letsdine/plan.html', context)
+
+
+@login_required(login_url='/login')
+def cancelplan(request, plan_id):
+    plan = get_object_or_404(Plan, pk=plan_id)
+    user = request.user 
+    plan.other_users.remove(request.user)
+    return HttpResponseRedirect(reverse('letsdine:dashboard'))
+
+
+@login_required(login_url='/login')
+def requestplan(request, plan_id):
+    plan = get_object_or_404(Plan, pk=plan_id)
+    user = request.user 
+    Plan_request.objects.create(user=user, plan=plan )
+    return HttpResponseRedirect(reverse('letsdine:dashboard')) 
+
+@login_required(login_url='/login')
+def confirmplan(request, plan_id):
+    planreq = get_object_or_404(Plan_request, pk=plan_id)
+    plan = planreq.plan
+    if not planreq.user in plan.other_users.all():
+        plan.other_users.add(planreq.user)
+    return HttpResponseRedirect(reverse('letsdine:dashboard'))
+
+@login_required(login_url='/login')
+def rejectplan(request, plan_id):
+    Plan_request.objects.filter(id=plan_id).delete()
+    return HttpResponseRedirect(reverse('letsdine:dashboard'))                                              
