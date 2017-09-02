@@ -9,6 +9,9 @@
 <link rel="stylesheet" href="{% static 'vendor/font-awesome-4.7.0/css/font-awesome.min.css' %}">
 <link href="https://fonts.googleapis.com/css?family=Satisfy" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Catamaran:900" rel="stylesheet">
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAi7AkT-8jQgSN9pmT3Y6v5iPi1eCkGIvM">
+    </script>
 </head>
 <body>
 <header class="header navbar-fixed-top">
@@ -71,7 +74,8 @@
 
   </div>
 </div>
-<div id="amyModal" class="modal fade" role="dialog" style="z-index: 2000! important;">
+{% for plan in plans %}
+<div id="{{ plan.id }}" class="modal fade" role="dialog" style="z-index: 2000! important;">
   <div class="modal-dialog">
 
     <!-- Modal content-->
@@ -90,6 +94,7 @@
 
   </div>
 </div>
+{% endfor %}
 <div id="bmyModal" class="modal fade" role="dialog" style="z-index: 2000! important;">
   <div class="modal-dialog">
 
@@ -117,7 +122,7 @@
 
                                 <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="register.html" style="font-family: 'Catamaran', sans-serif;font-size: 20px; line-height: 97px;width: 97px;color: white; "><center><i class="fa fa-home" aria-hidden="true"></i></center>
 </a></li>
-                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="login.html" style="font-family: 'Catamaran', sans-serif;font-size: 20px"><img src="https://i.pinimg.com/originals/63/19/ef/6319ef2f3fc88c94b14bb3fdeddca4a5.jpg" width="97px" height="97px"></a></li>
+                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="login.html" style="font-family: 'Catamaran', sans-serif;font-size: 20px"><img src="{{ userp.display_pic.url }}" width="97px" height="97px"></a></li>
                                 <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="register.html" style="font-family: 'Catamaran', sans-serif;font-size: 20px; line-height: 97px;width: 97px;color: white; "><center><i class="fa fa-sign-out" aria-hidden="true"></i></center>
 </a></li>
                             </ul>
@@ -134,7 +139,7 @@
         <div class="row">
             <div class="welcome" style="height: 150px;">
                 <div class="row" style="height: 30px;"></div>
-                <div class="row"><center><img src="https://i.pinimg.com/originals/63/19/ef/6319ef2f3fc88c94b14bb3fdeddca4a5.jpg" width="50px" height="50px" style="border-radius: 50%;"></center></div><br>
+                <div class="row"><center><img src="{{ userp.display_pic.url }}" width="50px" height="50px" style="border-radius: 50%;"></center></div><br>
                 <div class="row" style=" color: white; font-style: 'Catamaran', sans-serif;font-size: 20px;font-weight: bolder;"><center>WELCOME</center></div>
 
             </div>
@@ -185,63 +190,46 @@
         <div class="col-sm-9">
             <div class="row">
                 <div class="col-sm-12" class="body_height">
-                    
+                    {% for plan, x in planz %}
                     <div class="row">
                         <div class="otherplans" style="cursor: pointer;">
-                        <a data-toggle="modal" data-target="#amyModal">
+                        <a data-toggle="modal" data-target="#{{ plan.id }}">
                         <div class="otherplan">
                             <div class="row">
                                 <div class="plan">
-                                    Location on Date at Time . 4 people interested.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-success" type="submit">Send Request</button>
+                                    {{ plan.place.x }}  {{ plan.place.y }} {{ x.address}} on Date at Time . 4 people interested.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-success" type="submit">Send Request</button>
+                                    
                                 </div>
+
                             </div>
                         </div>
                         </a>
                          </div>
                     </div>
-                    <div class="row">
-                        <div class="otherplans" style="cursor: pointer;"> 
-                        <a data-toggle="modal" data-target="#amyModal">
-                            <div class="otherplan">
-                                <div class="row">
-                                <div class="plan">
-                                    Location on Date at Time . 4 people interested.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-success" type="submit">Send Request</button>
-                                </div>
-                            </div>
-                            </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="otherplans" style="cursor: pointer;"> 
-                        <a data-toggle="modal" data-target="#amyModal">
-                            <div class="otherplan">
-                                <div class="row">
-                                <div class="plan">
-                                    Location on Date at Time . 4 people interested.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-success" type="submit">Send Request</button>
-                                </div>
-                            </div>
-                            </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="otherplans" style="cursor: pointer;"> 
-                        <a data-toggle="modal" data-target="#amyModal">
-                            <div class="otherplan">
-                                <div class="row">
-                                <div class="plan">
-                                    Location on Date at Time . 4 people interested.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-success" type="submit">Send Request</button>
-                                </div>
-                            </div>
-                            </div>
-                            </a>
-                        </div>
-                    </div>
+                    <div id = "mapholder-{{plan.id}}"></div>
+                     <script type="text/javascript">
+
+   var lat = parseFloat({{ plan.place.x }});
+            var lng = parseFloat({{ plan.place.x }});
+            var latlng = new google.maps.LatLng(lat, lng);
+            var geocoder  = new google.maps.Geocoder();
+            geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    if (results[1]) {
+                        alert("Location: " + results[1].formatted_address);
+                    }
+                }
+            });
+                    </script>
+
+                    {% endfor %}
+                   
+                   
                 </div>
             </div>
         </div>
     </div>
+                    
 </div>
 
 <footer>

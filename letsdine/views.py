@@ -65,15 +65,33 @@ def register(request):
 def index(request):
     return render(request, 'letsdine/index.html')
 
+
+from geopy.geocoders import GoogleV3
 @login_required(login_url='/login')
 def dashboard(request):
     user = request.user
     logg = UserProfile.objects.get(user=request.user)
-    latest_plans = Plan.objects.order_by('-created_on')[:5]   
+    latest_plans = Plan.objects.order_by('-created_on')[:5]
+    geolocator = GoogleV3()
+    postlist = []
+    for plan in latest_plans:
+        x = str(plan.place.x)
+        a = plan.place.x
+        b = plan.place.y
+        print x
+
+        y = str(plan.place.y)
+        print y
+        location_list = geolocator.reverse((a,b))
+        if location_list:
+            location = location_list[0]
+            postlist.append(location)
+            print location
     context = {
     'userp' : logg,
     'user' : user,
     'plans' : latest_plans,
+    'planz': zip(latest_plans, postlist)
     }
     return render(request, 'letsdine/dashboard.html', context)
 
