@@ -66,13 +66,13 @@ def index(request):
     return render(request, 'letsdine/index.html')
 
 
-from geopy.geocoders import GoogleV3
+from geopy.geocoders import Nominatim
 @login_required(login_url='/login')
 def dashboard(request):
     user = request.user
     logg = UserProfile.objects.get(user=request.user)
     latest_plans = Plan.objects.order_by('-created_on')[:5]
-    geolocator = GoogleV3()
+    geolocator = Nominatim()
     postlist = []
     for plan in latest_plans:
         x = str(plan.place.x)
@@ -82,11 +82,9 @@ def dashboard(request):
 
         y = str(plan.place.y)
         print y
-        location_list = geolocator.reverse((a,b))
-        if location_list:
-            location = location_list[0]
-            postlist.append(location)
-            print location
+        location = geolocator.reverse((a,b))
+        postlist.append(location)
+        print location.raw
     context = {
     'userp' : logg,
     'user' : user,

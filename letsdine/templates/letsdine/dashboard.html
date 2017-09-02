@@ -74,7 +74,7 @@
 
   </div>
 </div>
-{% for plan in plans %}
+{% for plan, x in planz %}
 <div id="{{ plan.id }}" class="modal fade" role="dialog" style="z-index: 2000! important;">
   <div class="modal-dialog">
 
@@ -85,7 +85,11 @@
         <h4 class="modal-title">Plan Details</h4>
       </div>
       <div class="modal-body">
-        <p style="font-style: 'Catamaran', sans-serif;font-size: 20px;font-weight: bolder;">Location on Date at Time . <a href="">user1</a> , <a href="">user2</a> , <a href="">user3</a></p>
+        <p style="font-style: 'Catamaran', sans-serif;font-size: 20px;font-weight: bolder;">Following People are going {{ x.address}} on {{ plan.going_time }}<br>
+        {% for user in plan.other_users.all %}
+        <ul>
+        <li> <a href="{% url 'letsdine:profile' user.username %}"">{{ user.first_name }}  {{ user.last_name }}</a> </li></ul>
+        {% endfor %}</p>
       </div>
       <div class="modal-footer">
         <button class="btn  btn-success">Send Request</button><button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -197,7 +201,7 @@
                         <div class="otherplan">
                             <div class="row">
                                 <div class="plan">
-                                    {{ plan.place.x }}  {{ plan.place.y }} {{ x.address}} on Date at Time . 4 people interested.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-success" type="submit">Send Request</button>
+                                    Going {{ x.address}} on {{ plan.going_time }} . {{ plan.other_users.count }} people interested.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-success" type="submit">Send Request</button>
                                     
                                 </div>
 
