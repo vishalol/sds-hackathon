@@ -50,17 +50,18 @@
         <h4 class="modal-title">Notifications</h4>
       </div>
       <div class="modal-body">
+
         <p>
-            <div class="alert alert-success">
-  <strong>User1</strong> wants to join you &nbsp;&nbsp;&nbsp;<button class="btn btn-success">Approve</button>&nbsp;&nbsp;&nbsp;<button class="btn btn-danger">Reject</button>
+        {% for planre in recentrequestlist %}
+            <div class="alert alert-success"><a href="{% url 'letsdine:profile' planre.user.username %}">
+  <strong>{{ planre.user.username}}</strong></a> wants to join you &nbsp;&nbsp;&nbsp;
+  <a href="{% url 'letsdine:confirmplan' planre.id %}"><button class="btn btn-success">Approve</button></a>&nbsp;&nbsp;&nbsp;
+  <a href="{% url 'letsdine:rejectplan' planre.id %}"><button class="btn btn-danger">Reject</button></a>
 
 </div>
-<div class="alert alert-success">
-  <strong>Success!</strong> Indicates a successful or positive action.
-</div>
-<div class="alert alert-success">
-  <strong>Success!</strong> Indicates a successful or positive action.
-</div>
+{% endfor %}
+
+
 
 
 
@@ -88,11 +89,11 @@
         <p style="font-style: 'Catamaran', sans-serif;font-size: 20px;font-weight: bolder;">Following People are going {{ x.address}} on {{ plan.going_time }}<br>
         {% for user in plan.other_users.all %}
         <ul>
-        <li> <a href="{% url 'letsdine:profile' user.username %}"">{{ user.first_name }}  {{ user.last_name }}</a> </li></ul>
+        <li> <a href="{% url 'letsdine:profile' user.username %}">{{ user.first_name }}  {{ user.last_name }}</a> </li></ul>
         {% endfor %}</p>
       </div>
       <div class="modal-footer">
-        <button class="btn  btn-success">Send Request</button><button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+       <a href="{% url 'letsdine:requestplan' plan.id %}"> <button class="btn  btn-success">Send Request</button></a><button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
 
@@ -167,7 +168,7 @@
                     <div class="myplan1"> 
                        <center> Going {{ x.address}} on {{ plan.going_time }} . {{ plan.other_users.count }} people interested.</center> 
                         </div><br>
-                        <center><button class="btn btn-light" type="submit">Chat</button>&nbsp;&nbsp;<button class="btn btn-danger">Cancel Plan</button></center>
+                        <center><button class="btn btn-light" type="submit">Chat</button>&nbsp;&nbsp;<a href="{% url 'letsdine:cancelplan' plan.id %}"><button class="btn btn-danger">Cancel Plan</button></a></center>
                     </div><br>
                     </a>
                     {% endfor %}
@@ -187,7 +188,7 @@
                         <div class="otherplan">
                             <div class="row">
                                 <div class="plan">
-                                    Going {{ x.address}} on {{ plan.going_time }} . {{ plan.other_users.count }} people interested.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-success" type="submit">Send Request</button>
+                                    Going {{ x.address}} on {{ plan.going_time }} . {{ plan.other_users.count }} people interested.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url 'letsdine:requestplan' plan.id %}"><button class="btn btn-success" type="submit">Send Request</button>
                                     
                                 </div>
 

@@ -71,6 +71,14 @@ def index(request):
 @login_required(login_url='/login')
 def dashboard(request):
     myplans = request.user.iplans.all().order_by('-created_on')[:5]
+    planr = request.user.iplans.all().order_by('-created_on')
+    requestlist = []
+    recentrequestlist = []
+    for plan in planr:
+        pl = Plan_request.objects.filter(plan=plan)
+        for p in pl:
+            requestlist.append(p)
+    recentrequestlist = sorted(requestlist, key=lambda x: x.created_on, reverse=True)
     geolocator = Nominatim()
     mypostlist = []
     for plan in myplans:
@@ -101,14 +109,15 @@ def dashboard(request):
     'user' : user,
     'plans' : latest_plans,
     'planz': zip(latest_plans, postlist),
-    'myplanz': zip(myplans, mypostlist)
+    'myplanz': zip(myplans, mypostlist),
+    'recentrequestlist':recentrequestlist
     }
     return render(request, 'letsdine/dashboard.html', context)
 
 
 @login_required(login_url='/login')
 def edit_profile(request):
-    myplans = request.user.iplans.all().order_by('-created_on')[:5]
+    myplans = request.user.iplans.all().order_by('-created_on')[:5]        
     geolocator = Nominatim()
     mypostlist = []
     for plan in myplans:
@@ -131,7 +140,8 @@ def edit_profile(request):
             'user' : user,
             'profile' : profile,
             'form'  : form,
-            'myplanz': zip(myplans, mypostlist)
+            'myplanz': zip(myplans, mypostlist),
+            
             }   
             return HttpResponseRedirect(reverse('letsdine:editprofile'), context)
         else :
