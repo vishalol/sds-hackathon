@@ -1,12 +1,18 @@
 from django.contrib import admin
-
+from .forms import *
 # Register your models here.\
 from .models import *
-"""
+
 admin.site.register(UserProfile)
-admin.site.register(Idea)
-admin.site.register(Skill)
-admin.site.register(Requirement)
-admin.site.register(Room)
-admin.site.register(Link)
-"""
+
+admin.site.register(Plan_request)
+admin.site.register(Intrest)
+admin.site.register(Message)
+
+
+from mapwidgets.widgets import GooglePointFieldWidget
+
+class PlanAdmin(admin.ModelAdmin):
+    form = PlanAdminForm
+    
+admin.site.register(Plan, PlanAdmin)

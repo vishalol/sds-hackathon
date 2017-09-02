@@ -33,12 +33,16 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'letsdine.apps.LetsdineConfig',
+    'dal',
+    'dal_select2',
+    'django.contrib.gis',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'mapwidgets',
 ]
 
 MIDDLEWARE = [
@@ -75,12 +79,25 @@ WSGI_APPLICATION = 'sdshackathon.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+"""
+SPATIALITE_LIBRARY_PATH = 'mod_spatialite'
+
+DATABASES = {
+    'default': {
+    'ENGINE': 'django.contrib.gis.db.backends.spatialite',
+    'NAME': os.path.join(BASE_DIR, 'test.db'),
+    }
+}
+
+
+
 
 
 # Password validation
@@ -100,6 +117,16 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+MAP_WIDGETS = {
+     "GooglePointFieldWidget": (
+        ("zoom", 15),
+        ("mapCenterLocationName", "Roorkee"),
+        ("GooglePlaceAutocompleteOptions", {}),
+        ("markerFitZoom", 12),
+    ),
+    "GOOGLE_MAP_API_KEY": "AIzaSyAi7AkT-8jQgSN9pmT3Y6v5iPi1eCkGIvM"
+}
 
 
 # Internationalization
