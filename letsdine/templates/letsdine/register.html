@@ -32,8 +32,8 @@
                     
                         <div class="menu-container">
                             <ul class="nav navbar-nav navbar-nav-right">
-                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="index.html" style="font-family: 'Catamaran', sans-serif;font-size: 20px">Home</a></li>
-                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="login.html" style="font-family: 'Catamaran', sans-serif;font-size: 20px">Login</a></li>
+                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'letsdine:index'%}" style="font-family: 'Catamaran', sans-serif;font-size: 20px">Home</a></li>
+                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'letsdine:login'%}" style="font-family: 'Catamaran', sans-serif;font-size: 20px">Login</a></li>
                             </ul>
                         </div>
                     </div>
@@ -47,7 +47,23 @@
             
         </div>
         <div class="row">
-            <center><div class="main_heading"><form>
+            <center><div class="main_heading">
+            {% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+{% endif %}
+    <form method="post" action=".">
+        {% csrf_token %}
 <div class="row">
 <div class="col-sm-4"> </div>
         
@@ -56,31 +72,31 @@
 <p>
 <label class="firstname">First Name</label><br>
 
-<input type="text" class="form-control"/>
+<input type="text" class="form-control"/ name="first_name">
 </p>
 <p>
 
 <label class="lastname">Last Name</label><br>
-<input type="text" class="form-control"/>
+<input type="text" class="form-control"/ name="last_name">
 </p>
 <p>
     <label for="exampleInputEmail1" class="email">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="1234@example.com">
+    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="1234@example.com" name="email">
     
 </p>
 <p>
     <label class="user">Username</label><br>
-    <input type="text" class="form-control"/>
+    <input type="text" class="form-control"/ name="username">
 </p>
 <div class="form-group">
     <label for="exampleInputPassword1" class="password">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1">
+    <input type="password" class="form-control" id="exampleInputPassword1" name="password1">
   </div>
 <p>
-    <label class="confirmpass">Confirm Password</label><br>
-    <input type="text" class="form-control"/>
+    <label for="exampleInputPassword2" class="confirmpass">Confirm Password</label><br>
+    <input type="password" class="form-control"/ id="exampleInputPassword2" name="password2">
 </p> 
-<center><button class="btn btn-light" style="color: black"><B>Register</B></button></center>
+<center><button type="submit" class="btn btn-light" style="color: black"><B>Register</B></button></center>
 </div>
 <div class="col-sm-4">
 </div>

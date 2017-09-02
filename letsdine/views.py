@@ -69,12 +69,11 @@ def index(request):
 def dashboard(request):
     user = request.user
     logg = UserProfile.objects.get(user=request.user)
-    latest_plans = Plans.objects.order_by('-created_on')[:8]   
+    latest_plans = Plan.objects.order_by('-created_on')[:8]   
     context = {
     'userp' : logg,
-    'user' : users,
+    'user' : user,
     'plans' : latest_plans,
-    'user_list' : user_list,
     }
     return render(request, 'letsdine/dashboard.html', context)
 
@@ -131,7 +130,7 @@ def profile(request, username):
 
 @login_required(login_url='/login')
 def add_plan(request):
-	logg = UserProfile.objects.get(user=request.user)
+    logg = UserProfile.objects.get(user=request.user)
     if request.method == 'POST':
         form = PlanForm(request.POST)
         user = request.user
@@ -141,11 +140,11 @@ def add_plan(request):
             f.save()
             form.save_m2m()
             if not user in f.other_users.all():
-            	f.other_users.add(request.user)
-            	f.save()  
+                f.other_users.add(request.user)
+                f.save()  
             return HttpResponseRedirect(reverse('letsdine:dashboard'))
         else :
-        	context = {
+            context = {
         'form': form,
         'logg' : logg,
         }

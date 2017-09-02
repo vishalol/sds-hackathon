@@ -258,7 +258,7 @@
 .main{
     background-attachment: fixed;
     background-repeat: no-repeat;
-    background-image:linear-gradient(rgba(237,1,33,0.5),rgba(237,1,33,0.5)), url("../asd.jpg");
+    background-image:linear-gradient(rgba(237,1,33,0.5),rgba(237,1,33,0.5)), url("../images/log.jpg");
     background-position: center;
     background-size: cover;
 }
@@ -284,20 +284,20 @@ body,html,.row,.col{
 .pic_1{
     height: 70vh;
     background-repeat: no-repeat;
-    background-image:linear-gradient(rgba(237,1,33,0.5) 60%,rgba(255,255,255,1) 100%), url("asd.jpg");
+    background-image:linear-gradient(rgba(237,1,33,0.5) 60%,rgba(255,255,255,1) 100%), url("../images/log.jpg");
     background-position: center;
     background-size: cover;
 }
 .pic_2{
     background-repeat: no-repeat;
-    background-image:linear-gradient(rgba(237,1,33,0.5) 60%,rgba(29,32,82,1) 100%), url("asd.jpg");
+    background-image:linear-gradient(rgba(237,1,33,0.5) 60%,rgba(29,32,82,1) 100%), url("../images/log.jpg");
     background-position: center;
     background-size: cover;
     height: 70vh;
 }
 .pic_3{
     background-repeat: no-repeat;
-    background-image:linear-gradient(rgba(237,1,33,0.5) 60%,rgba(255,255,255,1) 100%), url("../asd.jpg");
+    background-image:linear-gradient(rgba(237,1,33,0.5) 60%,rgba(255,255,255,1) 100%), url("../images/log.jpg");
     background-position: center;
     background-size: cover;
     height: 70vh;

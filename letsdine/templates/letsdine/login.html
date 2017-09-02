@@ -31,8 +31,8 @@
 					
                         <div class="menu-container">
                             <ul class="nav navbar-nav navbar-nav-right">
-                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="index.html" style="font-family: 'Catamaran', sans-serif;font-size: 20px">Home</a></li>
-                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="register.html" style="font-family: 'Catamaran', sans-serif;font-size: 20px">Register</a></li>
+                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'letsdine:index'%}" style="font-family: 'Catamaran', sans-serif;font-size: 20px">Home</a></li>
+                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'letsdine:register'%}" style="font-family: 'Catamaran', sans-serif;font-size: 20px">Register</a></li>
                             </ul>
                         </div>
                     </div>
@@ -43,25 +43,55 @@
 <div class="main">
 	<div class="main_content">
 		<div class="row" style="height: 40vh">
-			
+		
 		</div>
-		<form>
     <div class="row">
     <div class="col-sm-4"></div>
     <div class="col-sm-4">
         <div class="form-group">
+        <!--
+        <form action="" method="post">
+          {% csrf_token %}
     <center><label for="exampleInputUsername1" id="user">Username</label></center>
-    <input type="email" class="form-control" id="exampleInput1" aria-describedby="emailHelp" placeholder="Username">
+    <input type="text" class="form-control" id="exampleInput1" aria-describedby="emailHelp" placeholder="Username">
   </div>
   <div class="form-group">
     <center><label for="exampleInputPassword1" id="passw">Password</label></center>
     <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
   </div>
   <br/>
-  <center><button class="btn btn-light"><B>Log In</B></button></center>
+  <center><button type="submit" class="btn btn-light"><B>Log In</B></button></center>
 </form>
+-->
+
+<form action="" method="post">
+                                    {% csrf_token %}
+                                    <label for="InputEmail" id="user">Username</label>
+                                    <input type="text" class="form-control"  name="username">
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="InputPassword" id="passw" >Password</label>
+                                    <input type="password" class="form-control"  name="password">
+                                  </div>
+                                  <div class="form-group"> 
+                              <button type="submit" class="btn btn-light">Log In</button>
+                          </form>
+                          
 	</div>
 </div>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
 </br>
 </br>
 </br>

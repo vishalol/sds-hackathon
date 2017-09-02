@@ -7,9 +7,11 @@ app_name = 'letsdine'
 urlpatterns = [
     # ex: /polls/
     url(r'^$', views.index, name='index'),
-    url(r'^login/$', auth_views.login, {'template_name': 'main/login.html'}, name='login'),
+    url(r'^login/$', auth_views.login, {'template_name': 'letsdine/login.html'}, name='login'),
     url(r'^logout/$', auth_views.logout,{'next_page': '/'}, name='logout'),
     url(r'^register/$', views.register, name='register'),
     url(r'^dashboard/$', views.dashboard, name='dashboard'),
     url(r'^addplan/$', views.add_plan, name='add_plan'),
+    url(r'^editprofile/$', views.edit_profile, name='edit_profile'),
+    url(r'^profile/(?P<username>\w+)/$', views.profile, name='profile'),
 ]

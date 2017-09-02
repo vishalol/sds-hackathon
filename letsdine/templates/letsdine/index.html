@@ -31,8 +31,13 @@
 					
                         <div class="menu-container">
                             <ul class="nav navbar-nav navbar-nav-right">
-                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="login.html" style="font-family: 'Catamaran', sans-serif;font-size: 20px">Login</a></li>
-                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="register.html" style="font-family: 'Catamaran', sans-serif;font-size: 20px">Register</a></li>
+                            {% if not user.is_authenticated %}
+                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'letsdine:login'%}" style="font-family: 'Catamaran', sans-serif;font-size: 20px">Login</a></li>
+                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'letsdine:register'%}" style="font-family: 'Catamaran', sans-serif;font-size: 20px">Register</a></li>
+                            {% else %}
+                            <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="#" style="font-family: 'Catamaran', sans-serif;font-size: 20px">Welcome {{ user.username }}</a></li>
+                            <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'letsdine:logout'%}" style="font-family: 'Catamaran', sans-serif;font-size: 20px">Logout</a></li>
+                            {% endif %}   
                             </ul>
                         </div>
                     </div>
