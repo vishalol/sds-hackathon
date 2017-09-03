@@ -12,6 +12,11 @@
 <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAi7AkT-8jQgSN9pmT3Y6v5iPi1eCkGIvM">
     </script>
+    <style type="text/css">
+        .fa-search:before{
+            color: white ;
+        }
+    </style>
 </head>
 <body>
 <header class="header navbar-fixed-top">
@@ -24,7 +29,7 @@
                         </button>
 
                           <div class="logo">
-                            <a class="logo-wrap" href="#body">
+                            <a class="logo-wrap" href="{% url 'letsdine:index' %}">
                                 <div class="logo_1" style="font-family: 'Satisfy', cursive;font-size: 35px; color: white! important; ">Let's Dine!</div>
                             </a>
                         </div>
@@ -128,13 +133,15 @@
 
                            </li>
 
-<li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" title="Add plan" href="register.html" style="font-family: 'Catamaran', sans-serif;font-size: 20px; line-height: 97px;width: 97px;color: white; "><center><i class="fa fa-plus" aria-hidden="true"></i></center>
+<li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" title="Add plan" href="{% url 'letsdine:add_plan' %}" style="font-family: 'Catamaran', sans-serif;font-size: 20px; line-height: 97px;width: 97px;color: white; "><center><i class="fa fa-plus" aria-hidden="true"></i></center>
 </a></li>
 
-                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="register.html" style="font-family: 'Catamaran', sans-serif;font-size: 20px; line-height: 97px;width: 97px;color: white; "><center><i class="fa fa-home" aria-hidden="true"></i></center>
+                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'letsdine:dashboard' %}" style="font-family: 'Catamaran', sans-serif;font-size: 20px; line-height: 97px;width: 97px;color: white; "><center><i class="fa fa-home" aria-hidden="true"></i></center>
 </a></li>
-                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="login.html" style="font-family: 'Catamaran', sans-serif;font-size: 20px"><img src="{{ userp.display_pic.url }}" width="97px" height="97px"></a></li>
-                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="register.html" style="font-family: 'Catamaran', sans-serif;font-size: 20px; line-height: 97px;width: 97px;color: white; "><center><i class="fa fa-sign-out" aria-hidden="true"></i></center>
+<li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'letsdine:search' %}" style="font-family: 'Catamaran', sans-serif;font-size: 20px; line-height: 97px;width: 97px;color: white; "><center><i class="fa fa-search" aria-hidden="true"></i></center>
+</a></li>
+                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'letsdine:profile' request.user.username %}" style="font-family: 'Catamaran', sans-serif;font-size: 20px"><img src="{{ userp.display_pic.url }}" width="97px" height="97px"></a></li>
+                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'letsdine:logout' %}" style="font-family: 'Catamaran', sans-serif;font-size: 20px; line-height: 97px;width: 97px;color: white; "><center><i class="fa fa-sign-out" aria-hidden="true"></i></center>
 </a></li>
                             </ul>
                         </div>
@@ -168,7 +175,7 @@
                     <div class="myplan1"> 
                        <center> Going {{ x.address}} on {{ plan.going_time }} . {{ plan.other_users.count }} people interested.</center> 
                         </div><br>
-                        <center><button class="btn btn-light" type="submit">Chat</button>&nbsp;&nbsp;<a href="{% url 'letsdine:cancelplan' plan.id %}"><button class="btn btn-danger">Cancel Plan</button></a></center>
+                        <center><a href="{% url 'letsdine:cancelplan' plan.id %}"><button class="btn btn-danger">Cancel Plan</button></a></center>
                     </div><br>
                     </a>
                     {% endfor %}
@@ -197,21 +204,6 @@
                         </a>
                          </div>
                     </div>
-                    <div id = "mapholder-{{plan.id}}"></div>
-                     <script type="text/javascript">
-
-   var lat = parseFloat({{ plan.place.x }});
-            var lng = parseFloat({{ plan.place.x }});
-            var latlng = new google.maps.LatLng(lat, lng);
-            var geocoder  = new google.maps.Geocoder();
-            geocoder.geocode({ 'latLng': latlng }, function (results, status) {
-                if (status == google.maps.GeocoderStatus.OK) {
-                    if (results[1]) {
-                        alert("Location: " + results[1].formatted_address);
-                    }
-                }
-            });
-                    </script>
 
                     {% endfor %}
                    

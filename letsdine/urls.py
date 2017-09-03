@@ -18,4 +18,5 @@ urlpatterns = [
     url(r'^confirmplan/(?P<plan_id>[0-9]+)/$', views.confirmplan, name='confirmplan'),
     url(r'^requestplan/(?P<plan_id>[0-9]+)/$', views.requestplan, name='requestplan'),
     url(r'^rejectplan/(?P<plan_id>[0-9]+)/$', views.rejectplan, name='rejectplan'),
+    url(r'^search/$', views.search, name='search'),
 ]

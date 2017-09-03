@@ -36,6 +36,7 @@
                                 <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'letsdine:register'%}" style="font-family: 'Catamaran', sans-serif;font-size: 20px">Register</a></li>
                             {% else %}
                             <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="#" style="font-family: 'Catamaran', sans-serif;font-size: 20px">Welcome {{ user.username }}</a></li>
+                            <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'letsdine:dashboard'%}" style="font-family: 'Catamaran', sans-serif;font-size: 20px">Dashboard</a></li>
                             <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'letsdine:logout'%}" style="font-family: 'Catamaran', sans-serif;font-size: 20px">Logout</a></li>
                             {% endif %}   
                             </ul>

@@ -10,6 +10,11 @@
 <link href="https://fonts.googleapis.com/css?family=Satisfy" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Catamaran:900" rel="stylesheet">
 <link href="css/prof.css" type="text/css" rel="stylesheet">
+<style type="text/css">
+        .fa-search:before{
+            color: white ;
+        }
+    </style>
 </head>
 <body>
 <header class="header navbar-fixed-top">
@@ -22,7 +27,7 @@
                         </button>
 
                           <div class="logo">
-                            <a class="logo-wrap" href="#body">
+                            <a class="logo-wrap" href="{% url 'letsdine:index' %}">
                                 <div class="logo_1" style="font-family: 'Satisfy', cursive;font-size: 35px; color: white">Let's Dine!</div>
                             </a>
                         </div>
@@ -35,8 +40,7 @@
                             <li class="js_nav-item nav-item">
                                 
 
-                                    <a class="nav-item-child nav-item-hover" data-toggle="modal" title="Notifications" data-target="#myModal" style="font-family: 'Catamaran', sans-serif;font-size: 20px; line-height: 97px;width: 97px;color: white; "><center><i class="fa fa-bell" aria-hidden="true" ></i></center>
-</a>
+                                    
 
 <div id="myModal" class="modal fade" role="dialog" style="z-index: 2000! important;">
   <div class="modal-dialog">
@@ -59,16 +63,44 @@
 <div class="alert alert-success">
   <strong>Success!</strong> Indicates a successful or positive action.
 </div>
+{% for plan, x in myplanz %}
+<div id="{{ plan.id }}-my" class="modal fade" role="dialog" style="z-index: 2000! important;">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Plan Details</h4>
+      </div>
+      <div class="modal-body">
+         <p style="font-style: 'Catamaran', sans-serif;font-size: 20px;font-weight: bolder;">Following People are going {{ x.address}} on {{ plan.going_time }}<br>
+        {% for user in plan.other_users.all %}
+        <ul>
+        <li> <a href="{% url 'letsdine:profile' user.username %}"">{{ user.first_name }}  {{ user.last_name }}</a> </li></ul>
+        {% endfor %}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endfor %}
 
 
 
                            </li>
-                           <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" title="Add Plan" href="register.html" style="font-family: 'Catamaran', sans-serif;font-size: 20px; line-height: 97px;width: 97px;color: white; "><center><i class="fa fa-plus" aria-hidden="true"></i></center>
+                           <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" title="Add plan" href="{% url 'letsdine:add_plan' %}" style="font-family: 'Catamaran', sans-serif;font-size: 20px; line-height: 97px;width: 97px;color: white; "><center><i class="fa fa-plus" aria-hidden="true"></i></center>
 </a></li>
-                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" title="Home" href="register.html" style="font-family: 'Catamaran', sans-serif;font-size: 20px; line-height: 97px;width: 97px;color: white; "><center><i class="fa fa-home" aria-hidden="true"></i></center>
+
+                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'letsdine:dashboard' %}" style="font-family: 'Catamaran', sans-serif;font-size: 20px; line-height: 97px;width: 97px;color: white; "><center><i class="fa fa-home" aria-hidden="true"></i></center>
 </a></li>
-                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="login.html" style="font-family: 'Catamaran', sans-serif;font-size: 20px"><img src="https://i.pinimg.com/originals/63/19/ef/6319ef2f3fc88c94b14bb3fdeddca4a5.jpg" width="97px" height="97px"></a></li>
-                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" title="Sign Out" href="register.html" style="font-family: 'Catamaran', sans-serif;font-size: 20px; line-height: 97px;width: 97px;color: white; "><center><i class="fa fa-sign-out" aria-hidden="true"></i></center>
+<li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'letsdine:search' %}" style="font-family: 'Catamaran', sans-serif;font-size: 20px; line-height: 97px;width: 97px;color: white; "><center><i class="fa fa-search" aria-hidden="true"></i></center>
+</a></li>
+                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'letsdine:profile' request.user.username %}" style="font-family: 'Catamaran', sans-serif;font-size: 20px"><img src="{{ user.userprofile.display_pic.url }}" width="97px" height="97px"></a></li>
+                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'letsdine:logout' %}" style="font-family: 'Catamaran', sans-serif;font-size: 20px; line-height: 97px;width: 97px;color: white; "><center><i class="fa fa-sign-out" aria-hidden="true"></i></center>
 </a></li>
                             </ul>
                         </div>
@@ -94,30 +126,17 @@
             <div class="row" >
                 <div class="col-sm-2"></div>
                 <div class="col-sm-8" class="" style="height: 500px; overflow: scroll;">
-                    <div class="myplan">
+                     {% for plan, x in myplanz %}
+                <a data-toggle="modal" data-target="#{{ plan.id }}-my">
+                    <div class="myplan" style="cursor: pointer;">
+
                     <div class="myplan1"> 
-                       <center> Location on Date at Time . 4 people intereseted.</center> 
+                       <center> Going {{ x.address}} on {{ plan.going_time }} . {{ plan.other_users.count }} people interested.</center> 
                         </div><br>
-                        <center><button class="btn btn-light" type="submit">Chat</button>&nbsp;&nbsp;<button class="btn btn-danger">Cancel Plan</button></center>
+                        <center><a href="{% url 'letsdine:cancelplan' plan.id %}"><button class="btn btn-danger">Cancel Plan</button></a></center>
                     </div><br>
-                    <div class="myplan">
-                        <div class="myplan1"> 
-                       <center> Location on Date at Time . 4 people intereseted.</center> 
-                        </div><br>
-                        <center><button class="btn btn-light" type="submit">Chat</button>&nbsp;&nbsp;<button class="btn btn-danger">Cancel Plan</button></center>
-                    </div><br>
-                    <div class="myplan">
-                        <div class="myplan1"> 
-                       <center> Location on Date at Time . 4 people intereseted.</center> 
-                        </div><br>
-                        <center><button class="btn btn-light" type="submit">Chat</button>&nbsp;&nbsp;<button class="btn btn-danger">Cancel Plan</button></center>
-                    </div><br>
-                    <div class="myplan">
-                        <div class="myplan1"> 
-                       <center> Location on Date at Time . 4 people intereseted.</center> 
-                        </div><br>
-                        <center><button class="btn btn-light" type="submit">Chat</button>&nbsp;&nbsp;<button class="btn btn-danger">Cancel Plan</button></center>
-                    </div>
+                    </a>
+                    {% endfor %}
                 </div>
                 <div class="col-sm-2"></div>
             </div>

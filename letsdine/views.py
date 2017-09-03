@@ -11,6 +11,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
 from django.db.models import Q
+from datetime import datetime, timedelta
 try:
     from django.utils import simplejson as json
 except ImportError:
@@ -253,9 +254,67 @@ def confirmplan(request, plan_id):
     plan = planreq.plan
     if not planreq.user in plan.other_users.all():
         plan.other_users.add(planreq.user)
+    Plan_request.objects.filter(id=plan_id).delete()    
     return HttpResponseRedirect(reverse('letsdine:dashboard'))
 
 @login_required(login_url='/login')
 def rejectplan(request, plan_id):
     Plan_request.objects.filter(id=plan_id).delete()
-    return HttpResponseRedirect(reverse('letsdine:dashboard'))                                              
+    return HttpResponseRedirect(reverse('letsdine:dashboard')) 
+
+
+@login_required(login_url='/login')
+def search(request):
+    myplans = request.user.iplans.all().order_by('-created_on')[:5]
+    geolocator = Nominatim()
+    mypostlist = []
+    for plan in myplans:
+        x = str(plan.place.x)
+        a = plan.place.x
+        b = plan.place.y
+        y = str(plan.place.y)
+        location = geolocator.reverse((a,b))
+        mypostlist.append(location)
+    if request.method == 'GET':
+        allplan = Plan.objects.all()
+        query_time= request.GET.get('time')
+
+        query_type= request.GET.get('type', "None")
+        if query_time and query_type:
+            query_time = datetime.strptime(query_time, "%Y-%m-%d %H:%M:%S")
+            start = query_time - timedelta(hours = 1)
+            end = query_time + timedelta(hours = 1)
+            qs = Plan.objects.filter(created_on__range=(start, end))
+            qs = qs.filter(food_type = query_type)
+        if query_time and not query_type:
+            query_time = datetime.strptime(query_time, "%Y-%m-%d %H:%M:%S")
+            start = query_time - timedelta(hours = 1)
+            end = query_time + timedelta(hours = 1)
+            qs = Plan.objects.filter(created_on__range=(start, end)) 
+        if query_type and not query_time:
+            qs = Plan.objects.filter(food_type = query_type)
+        geolocator = Nominatim()
+        qpostlist = []
+        for plan in qs:
+            x = str(plan.place.x)
+            a = plan.place.x
+            b = plan.place.y
+            print x
+
+            y = str(plan.place.y)
+            print y
+            location = geolocator.reverse((a,b))
+            qpostlist.append(location)    
+        context = {
+        'myplanz': zip(myplans, mypostlist),
+        'qs' : qs,
+        'searched': zip(qs,qpostlist )
+        }     
+        return render(request, 'letsdine/Search.html', context)       
+
+    context = {
+        'myplanz': zip(myplans, mypostlist)
+        }     
+    return render(request, 'letsdine/Search.html', context)
+
+
