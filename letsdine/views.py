@@ -125,7 +125,7 @@ def edit_profile(request):
         a = plan.place.x
         b = plan.place.y
         y = str(plan.place.y)
-        location = geolocator.reverse((a,b))
+        location = geolocator.reverse((b,a))
         mypostlist.append(location)
     if request.method == 'POST':
         user = request.user
@@ -174,7 +174,7 @@ def profile(request, username):
         a = plan.place.x
         b = plan.place.y
         y = str(plan.place.y)
-        location = geolocator.reverse((a,b))
+        location = geolocator.reverse((b,a))
         mypostlist.append(location)
     logg = UserProfile.objects.get(user=request.user)
     loguser = request.user
@@ -199,7 +199,7 @@ def add_plan(request):
         a = plan.place.x
         b = plan.place.y
         y = str(plan.place.y)
-        location = geolocator.reverse((a,b))
+        location = geolocator.reverse((b,a))
         mypostlist.append(location)
     logg = UserProfile.objects.get(user=request.user)
     if request.method == 'POST':
@@ -262,6 +262,7 @@ def confirmplan(request, plan_id):
 def rejectplan(request, plan_id):
     Plan_request.objects.filter(id=plan_id).delete()
     return HttpResponseRedirect(reverse('letsdine:dashboard')) 
+from django.utils import timezone
 
 
 @login_required(login_url='/login')
@@ -274,7 +275,7 @@ def search(request):
         a = plan.place.x
         b = plan.place.y
         y = str(plan.place.y)
-        location = geolocator.reverse((a,b))
+        location = geolocator.reverse((b,a))
         mypostlist.append(location)
     if request.method == 'GET':
         allplan = Plan.objects.all()
@@ -285,12 +286,16 @@ def search(request):
             query_time = datetime.strptime(query_time, "%Y-%m-%d %H:%M:%S")
             start = query_time - timedelta(hours = 1)
             end = query_time + timedelta(hours = 1)
+            start = timezone.make_aware(start, timezone.get_current_timezone())
+            end = timezone.make_aware(end, timezone.get_current_timezone())
             qs = Plan.objects.filter(created_on__range=(start, end))
             qs = qs.filter(food_type = query_type)
         if query_time and not query_type:
             query_time = datetime.strptime(query_time, "%Y-%m-%d %H:%M:%S")
             start = query_time - timedelta(hours = 1)
             end = query_time + timedelta(hours = 1)
+            start = timezone.make_aware(start, timezone.get_current_timezone())
+            end = timezone.make_aware(end, timezone.get_current_timezone())
             qs = Plan.objects.filter(created_on__range=(start, end)) 
         if query_type and not query_time:
             qs = Plan.objects.filter(food_type = query_type)

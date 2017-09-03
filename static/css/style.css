@@ -285,20 +285,20 @@ body,html,.row,.col{
 .pic_1{
     height: 70vh;
     background-repeat: no-repeat;
-    background-image:linear-gradient(rgba(237,1,33,0.5) 60%,rgba(255,255,255,1) 100%), url("../images/pic.png");
+    background-image:linear-gradient(rgba(237,1,33,0.5) 60%,rgba(255,255,255,1) 100%), url("../images/image1.png");
     background-position: center;
     background-size: cover;
 }
 .pic_2{
     background-repeat: no-repeat;
-    background-image:linear-gradient(rgba(237,1,33,0.5) 60%,rgba(29,32,82,1) 100%), url("../images/pic.png");
+    background-image:linear-gradient(rgba(237,1,33,0.5) 60%,rgba(29,32,82,1) 100%), url("../images/image2.png");
     background-position: center;
     background-size: cover;
     height: 70vh;
 }
 .pic_3{
     background-repeat: no-repeat;
-    background-image:linear-gradient(rgba(237,1,33,0.5) 60%,rgba(255,255,255,1) 100%), url("../images/pic.png");
+    background-image:linear-gradient(rgba(237,1,33,0.5) 60%,rgba(255,255,255,1) 100%), url("../images/image3.png");
     background-position: center;
     background-size: cover;
     height: 70vh;
