@@ -48,7 +48,7 @@ class Plan(models.Model):
 
 
 class Plan_request(models.Model):
-  user  = models.OneToOneField(User, on_delete=models.CASCADE)
+  user  = models.ForeignKey(User, on_delete=models.CASCADE)
   created_on = models.DateTimeField(auto_now_add=True)
   Status_CHOICES = (
         ('A', 'Accepted'),

@@ -1,6 +1,9 @@
+<html>
+<head>
 {# Don't forget that one ! #}
 {% load static %}
-  <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <link href="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.44/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 <script src="//cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -18,15 +21,123 @@
         <script>
 </script>
 {{ form.media }}
+<style type="text/css">
+        .fa-search:before{
+            color: white ;
+        }
+    </style>
+
+
+
+
 
 {% block content %}
+</head>
+<header class="header navbar-fixed-top">
+              <nav class="navbar" role="navigation">
+                <div class="container">
+                      <div class="menu-container js_nav-item">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="toggle-icon"></span>
+                        </button>
+
+                          <div class="logo">
+                            <a class="logo-wrap" href="{% url 'letsdine:index' %}">
+                                <div class="logo_1" style="font-family: 'Satisfy', cursive;font-size: 35px; color: white">Let's Dine!</div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="collapse navbar-collapse nav-collapse">
+                    
+                        <div class="menu-container">
+                            <ul class="nav navbar-nav navbar-nav-right">
+                            <li class="js_nav-item nav-item">
+                                
+
+                                    
+
+
+<div id="myModal" class="modal fade" role="dialog" style="z-index: 2000! important;">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Notifications</h4>
+      </div>
+      <div class="modal-body">
+        <p>
+            <div class="alert alert-success">
+  <strong>User1</strong> wants to join you &nbsp;&nbsp;&nbsp;<button class="btn btn-success">Approve</button>&nbsp;&nbsp;&nbsp;<button class="btn btn-danger">Reject</button>
+
+</div>
+<div class="alert alert-success">
+  <strong>Success!</strong> Indicates a successful or positive action.
+</div>
+<div class="alert alert-success">
+  <strong>Success!</strong> Indicates a successful or positive action.
+</div>
+{% for plan, x in myplanz %}
+<div id="{{ plan.id }}-my" class="modal fade" role="dialog" style="z-index: 2000! important;">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Plan Details</h4>
+      </div>
+      <div class="modal-body">
+         <p style="font-style: 'Catamaran', sans-serif;font-size: 20px;font-weight: bolder;">Following People are going {{ x.address}} on {{ plan.going_time }}<br>
+        {% for user in plan.other_users.all %}
+        <ul>
+        <li> <a href="{% url 'letsdine:profile' user.username %}"">{{ user.first_name }}  {{ user.last_name }}</a> </li></ul>
+        {% endfor %}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endfor %}
+
+
+
+                           </li>
+                           <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" title="Add plan" href="{% url 'letsdine:add_plan' %}" style="font-family: 'Catamaran', sans-serif;font-size: 20px; line-height: 97px;width: 97px;color: white;"><center><i class="fa fa-plus" aria-hidden="true"></i></center>
+</a></li>
+
+                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'letsdine:dashboard' %}" style="font-family: 'Catamaran', sans-serif;font-size: 20px; line-height: 97px;width: 97px;color: white; "><center><i class="fa fa-home" aria-hidden="true"></i></center>
+</a></li>
+<li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'letsdine:search' %}" style="font-family: 'Catamaran', sans-serif;font-size: 20px; line-height: 97px;width: 97px;color: white; "><center><i class="fa fa-search" aria-hidden="true"></i></center>
+</a></li>
+                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'letsdine:profile' request.user.username %}" style="font-family: 'Catamaran', sans-serif;font-size: 20px"><img src="{{ user.userprofile.display_pic.url }}" width="97px" height="97px"></a></li>
+                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'letsdine:logout' %}" style="font-family: 'Catamaran', sans-serif;font-size: 20px; line-height: 97px;width: 97px;color: white; "><center><i class="fa fa-sign-out" aria-hidden="true"></i></center>
+</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            </header>
+<body>
 <div>
+<div class="row">
+<div class="col-sm-4"></div>
+<div class="col-sm-4"><br><br><br><br><br><br><br><br>
     <form action="." method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" />
     </form>
-
+    </div>
+    <div class="col-sm-4"></div>
+</div>
 </div>
 <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <link href="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.44/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
@@ -38,7 +149,7 @@
         <script src="{% static 'vendor/jquery-migrate.min.js' %}' %}" type="text/javascript"></script>
         <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}' %}" type="text/javascript"></script>
         <script type="text/javascript" src="{% static 'js/javascript.js' %}' %}"></script>
-<script>
+        <script>
     $(function () {
         $('#id_going_time').datetimepicker({
             format:'YYYY-MM-DD HH:mm:ss'
@@ -46,5 +157,9 @@
     });
 </script>
 
+
+
 {% endblock %}
 
+</body>
+</html>

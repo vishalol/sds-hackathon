@@ -80,6 +80,7 @@ def dashboard(request):
         for p in pl:
             requestlist.append(p)
     recentrequestlist = sorted(requestlist, key=lambda x: x.created_on, reverse=True)
+
     geolocator = Nominatim()
     mypostlist = []
     for plan in myplans:
@@ -87,7 +88,7 @@ def dashboard(request):
         a = plan.place.x
         b = plan.place.y
         y = str(plan.place.y)
-        location = geolocator.reverse((a,b))
+        location = geolocator.reverse((b,a))
         mypostlist.append(location)
     user = request.user
     logg = UserProfile.objects.get(user=request.user)
@@ -98,20 +99,18 @@ def dashboard(request):
         x = str(plan.place.x)
         a = plan.place.x
         b = plan.place.y
-        print x
 
         y = str(plan.place.y)
-        print y
-        location = geolocator.reverse((a,b))
+        location = geolocator.reverse((b,a))
         postlist.append(location)
-
+    print recentrequestlist
     context = {
     'userp' : logg,
     'user' : user,
     'plans' : latest_plans,
     'planz': zip(latest_plans, postlist),
     'myplanz': zip(myplans, mypostlist),
-    'recentrequestlist':recentrequestlist
+    'recentrequestlist':recentrequestlist,
     }
     return render(request, 'letsdine/dashboard.html', context)
 
@@ -221,7 +220,7 @@ def add_plan(request):
         'logg' : logg,
         'myplanz': zip(myplans, mypostlist)
         }
-            return render(request, 'letsdine/plan.html', context)
+            return render(request, 'letsdine/create.html', context)
     else:
         logg = UserProfile.objects.get(user=request.user)
         form = PlanForm()
@@ -230,7 +229,7 @@ def add_plan(request):
         'logg' : logg,
         'myplanz': zip(myplans, mypostlist)
         }   
-        return render(request, 'letsdine/plan.html', context)
+        return render(request, 'letsdine/create.html', context)
 
 
 @login_required(login_url='/login')
@@ -238,6 +237,8 @@ def cancelplan(request, plan_id):
     plan = get_object_or_404(Plan, pk=plan_id)
     user = request.user 
     plan.other_users.remove(request.user)
+    if plan.other_users.count()==0:
+        Plan.objects.filter(id = plan_id).delete()
     return HttpResponseRedirect(reverse('letsdine:dashboard'))
 
 
