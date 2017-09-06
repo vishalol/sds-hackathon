@@ -78,7 +78,9 @@
         {% for user in plan.other_users.all %}
         <ul>
         <li> <a href="{% url 'letsdine:profile' user.username %}"">{{ user.first_name }}  {{ user.last_name }}</a> </li></ul>
+        
         {% endfor %}</p>
+        <center><a  target="_blank" href="https://www.google.com/maps/dir//{{ plan.place.y }},{{ plan.place.x }}/"><img src="https://maps.googleapis.com/maps/api/staticmap?center={{ plan.place.y }},{{ plan.place.x }}&zoom=18&scale=1&size=400x250&maptype=roadmap&key=AIzaSyAi7AkT-8jQgSN9pmT3Y6v5iPi1eCkGIvM&format=png&visual_refresh=true&markers=size:mid%7Ccolor:0xff0000%7Clabel:1%7C{{ plan.place.y }},{{ plan.place.x }}" alt="Google Map of {{ plan.place.y }},{{ plan.place.x }}"></a></center>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
