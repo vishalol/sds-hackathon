@@ -17,7 +17,7 @@ try:
 except ImportError:
     import json
 from dal import autocomplete
-from geopy.geocoders import Nominatim
+from geopy.geocoders import GoogleV3, Nominatim
 
 # Create your views here.
 
@@ -81,7 +81,7 @@ def dashboard(request):
             requestlist.append(p)
     recentrequestlist = sorted(requestlist, key=lambda x: x.created_on, reverse=True)
 
-    geolocator = Nominatim()
+    geolocator = GoogleV3()
     mypostlist = []
     for plan in myplans:
         x = str(plan.place.x)
@@ -89,7 +89,8 @@ def dashboard(request):
         b = plan.place.y
         y = str(plan.place.y)
         location = geolocator.reverse((b,a))
-        mypostlist.append(location)
+        mypostlist.append(location[0])
+        print location[0]
     user = request.user
     logg = UserProfile.objects.get(user=request.user)
     latest_plans = Plan.objects.order_by('-created_on')[:5]

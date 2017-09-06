@@ -58,7 +58,7 @@ class Plan_request(models.Model):
   status =  models.CharField(max_length=1, choices=Status_CHOICES, default='P')
   plan = models.ForeignKey(Plan, on_delete=models.SET_NULL, null = True)
   def __str__(self):
-   return self.user.username + " "+self.plan.place
+   return self.user.username
 
 class Message(models.Model):
   created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null = True)
